@@ -13,17 +13,18 @@ function toggleComments() {
     comments.style.cssText = `
       position: fixed;
       right: 0;
-      width: 30% !important;
+      width: 20% !important;
+      min-width: 250px;
+      max-width: 500px;
       height: 100vh;
       overflow-y: auto;
       z-index: 1000;
       padding: 10px;
       top: 0;
       background: white;
-      max-width: 500px;
-      min-width: 250px;
       margin-top: 50px;
       border: .5px black solid;
+      transition: width 0.5s ease;
     `;
 
     if (!document.getElementById("comments-close-btn")) {
@@ -56,6 +57,18 @@ function toggleComments() {
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
     }, 0);
+
+    let shrinkTimeout;
+    comments.addEventListener('mouseenter', () => {
+      clearTimeout(shrinkTimeout);
+      comments.style.width = '50%';
+    });
+
+    comments.addEventListener('mouseleave', () => {
+      shrinkTimeout = setTimeout(() => {
+        comments.style.width = '20%';
+      }, 200);
+    });
 
   } else {
     comments.style.cssText = '';
@@ -119,12 +132,12 @@ function resetComments() {
   if (closeButton) closeButton.remove();
 }
 
-// Re-run when navigating between YouTube videos
-let lastUrl = location.href;
-new MutationObserver(() => {
-  if (location.href !== lastUrl) {
-    lastUrl = location.href;
-    resetComments();
-    isCommentsRight = false;
-  }
-}).observe(document, { subtree: true, childList: true });
+// // Re-run when navigating between YouTube videos
+// let lastUrl = location.href;
+// new MutationObserver(() => {
+//   if (location.href !== lastUrl) {
+//     lastUrl = location.href;
+//     resetComments();
+//     isCommentsRight = false;
+//   }
+// }).observe(document, { subtree: true, childList: true });
