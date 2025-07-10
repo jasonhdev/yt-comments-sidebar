@@ -11,6 +11,8 @@ function toggleComments() {
   isCommentsRight = !isCommentsRight;
 
   if (isCommentsRight) {
+    document.body.style.overflow = 'hidden';
+
     comments.style.cssText = `
       position: fixed;
       right: 0;
@@ -58,16 +60,20 @@ function toggleComments() {
 
     comments.removeEventListener('mouseenter', mouseEnterHandler);
     comments.removeEventListener('mouseleave', mouseLeaveHandler);
-    
+
+    document.body.style.overflow = '';
     document.removeEventListener('click', handleOutsideClick);
   }
 }
 
 function handleOutsideClick(event) {
   const comments = document.getElementById('comments');
-  const closeButton = document.getElementById('comments-close-btn');
+  const videoElement = document.querySelector('video');
+  if (videoElement && videoElement.contains(event.target)) {
+    return;
+  }
 
-  if (!comments.contains(event.target) && event.target !== closeButton) {
+  if (!comments.contains(event.target)) {
     document.removeEventListener('click', handleOutsideClick);
     toggleComments();
   }
