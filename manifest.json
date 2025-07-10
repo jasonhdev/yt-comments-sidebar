@@ -9,9 +9,6 @@
   "action": {
     "default_icon": "youtubeIcon.png"
   },
-  "background": {
-    "service_worker": "background.js"
-  },
   "permissions": [
     "activeTab",
     "scripting",
