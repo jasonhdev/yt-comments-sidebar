@@ -1,19 +1,13 @@
 {
-  "update_url": "https://clients2.google.com/service/update2/crx",
-  "version": "4.0",
-  "name": "Youtube Right Side Comments",
-  "description": "Easily toggle YouTube comments to the right or default left side with our Chrome extension for a more organized viewing experience.",
+  "version": "1.0",
+  "name": "Youtube Comments Sidebar",
+  "description": "Instantly view YouTube comments right next to your video - no scrolling needed.",
   "icons": {
     "128": "youtubeIcon.png"
   },
   "action": {
     "default_icon": "youtubeIcon.png"
   },
-  "permissions": [
-    "activeTab",
-    "scripting",
-    "commands"
-  ],
   "content_scripts": [
     {
       "js": [
@@ -26,9 +20,6 @@
         "styles.css"
       ]
     }
-  ],
-  "host_permissions": [
-    "*://www.youtube.com/*"
   ],
   "web_accessible_resources": [
     {
