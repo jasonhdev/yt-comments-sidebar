@@ -38,7 +38,7 @@ function handleOutsideClick(event) {
 }
 
 function addCommentsButton() {
-  const targetElement = document.querySelector('div#description');
+  const targetElement = document.querySelector('div#title');
 
   if (!targetElement)
     return false;
@@ -47,8 +47,13 @@ function addCommentsButton() {
     return true;
 
   const button = document.createElement('button');
-  button.innerText = 'Comments';
-  button.id = "openCommentsBtn"
+
+  const icon = document.createElement('img');
+  icon.src = chrome.runtime.getURL('buttonIcon.png');
+  icon.alt = 'Comments';
+
+  button.appendChild(icon);
+  button.id = "openCommentsBtn";
 
   button.addEventListener('click', () => {
     toggleComments();

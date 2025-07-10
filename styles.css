@@ -24,18 +24,22 @@
 }
 
 #openCommentsBtn {
-    margin: 10px;
-    padding: 8px 12px;
-    background-color: #ff4949;
-    color: white;
+    width: 35px;
+    height: 30px;
+    padding: 5px;
+    background-color: #f4f4f4;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    z-index: 1000;
     float: right;
-    position: relative;
 }
 
 #openCommentsBtn:hover {
-    background-color: #ff0000;
+    background-color: #e5e5e5;
+}
+
+#openCommentsBtn>img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
