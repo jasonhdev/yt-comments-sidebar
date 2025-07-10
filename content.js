@@ -1,4 +1,5 @@
 let isCommentsRight = false;
+let firstClick = true;
 
 function toggleComments() {
   const comments = document.getElementById('comments');
@@ -26,6 +27,11 @@ function toggleComments() {
       border: .5px black solid;
       transition: width 0.5s ease;
     `;
+
+    if (firstClick) {
+      comments.style.width = "50%";
+      firstclick = false;
+    }
 
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
