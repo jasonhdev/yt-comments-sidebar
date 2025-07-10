@@ -21,7 +21,8 @@
       ],
       "matches": [
         "https://www.youtube.com/*"
-      ]
+      ],
+      "css": ["styles.css"]
     }
   ],
   "host_permissions": [
