@@ -40,10 +40,11 @@ function handleOutsideClick(event) {
 function addCommentsButton() {
   const targetElement = document.querySelector('div#description');
 
-  if (!targetElement) return;
+  if (!targetElement)
+    return false;
 
   if (document.getElementById('openCommentsBtn'))
-    return;
+    return true;
 
   const button = document.createElement('button');
   button.innerText = 'Comments';
@@ -57,9 +58,11 @@ function addCommentsButton() {
   targetElement.prepend(button);
 }
 
-// Run when page fully loads
 window.addEventListener('load', () => {
-  setTimeout(() => {
-    addCommentsButton();
-  }, 2000);
+  const interval = setInterval(() => {
+    const success = addCommentsButton();
+    if (success) {
+      clearInterval(interval);
+    }
+  }, 1000);
 });
