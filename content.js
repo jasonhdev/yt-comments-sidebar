@@ -38,19 +38,28 @@ function toggleComments() {
     }, 0);
 
     let shrinkTimeout;
-    comments.addEventListener('mouseenter', () => {
+    mouseEnterHandler = () => {
       clearTimeout(shrinkTimeout);
       comments.style.width = '50%';
-    });
+    };
 
-    comments.addEventListener('mouseleave', () => {
+    mouseLeaveHandler = () => {
       shrinkTimeout = setTimeout(() => {
         comments.style.width = '20%';
       }, 200);
-    });
+    };
+
+    comments.addEventListener('mouseenter', mouseEnterHandler);
+    comments.addEventListener('mouseleave', mouseLeaveHandler);
 
   } else {
     comments.style.cssText = '';
+    comments.removeAttribute('style');
+
+    comments.removeEventListener('mouseenter', mouseEnterHandler);
+    comments.removeEventListener('mouseleave', mouseLeaveHandler);
+    
+    document.removeEventListener('click', handleOutsideClick);
   }
 }
 
