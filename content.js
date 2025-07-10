@@ -51,11 +51,24 @@ function toggleComments() {
       });
 
       document.body.appendChild(closeButton);
-
     }
+
+    setTimeout(() => {
+      document.addEventListener('click', handleOutsideClick);
+    }, 0);
 
   } else {
     comments.style.cssText = '';
+  }
+}
+
+function handleOutsideClick(event) {
+  const comments = document.getElementById('comments');
+  const closeButton = document.getElementById('comments-close-btn');
+
+  if (!comments.contains(event.target) && event.target !== closeButton) {
+    document.removeEventListener('click', handleOutsideClick);
+    toggleComments();
   }
 }
 
@@ -95,3 +108,23 @@ window.addEventListener('load', () => {
     addCommentsButton();
   }, 2000);
 });
+
+function resetComments() {
+  const comments = document.getElementById('comments');
+  if (comments) {
+    comments.style.cssText = '';
+  }
+
+  const closeButton = document.getElementById('comments-close-btn');
+  if (closeButton) closeButton.remove();
+}
+
+// Re-run when navigating between YouTube videos
+let lastUrl = location.href;
+new MutationObserver(() => {
+  if (location.href !== lastUrl) {
+    lastUrl = location.href;
+    resetComments();
+    isCommentsRight = false;
+  }
+}).observe(document, { subtree: true, childList: true });
