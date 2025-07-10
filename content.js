@@ -27,33 +27,6 @@ function toggleComments() {
       transition: width 0.5s ease;
     `;
 
-    if (!document.getElementById("comments-close-btn")) {
-      const closeButton = document.createElement("button");
-      closeButton.id = "comments-close-btn";
-      closeButton.innerText = "✕";
-      closeButton.style.position = "fixed";
-      closeButton.style.top = "60px";
-      closeButton.style.right = "10px";
-      closeButton.style.zIndex = "1001";
-      closeButton.style.background = "black";
-      closeButton.style.color = "white";
-      closeButton.style.border = "none";
-      closeButton.style.borderRadius = "50%";
-      closeButton.style.width = "30px";
-      closeButton.style.height = "30px";
-      closeButton.style.cursor = "pointer";
-      closeButton.style.fontSize = "16px";
-      closeButton.style.lineHeight = "30px";
-      closeButton.style.textAlign = "center";
-
-      closeButton.addEventListener("click", () => {
-        closeButton.remove();
-        toggleComments();
-      });
-
-      document.body.appendChild(closeButton);
-    }
-
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
     }, 0);
@@ -121,23 +94,3 @@ window.addEventListener('load', () => {
     addCommentsButton();
   }, 2000);
 });
-
-function resetComments() {
-  const comments = document.getElementById('comments');
-  if (comments) {
-    comments.style.cssText = '';
-  }
-
-  const closeButton = document.getElementById('comments-close-btn');
-  if (closeButton) closeButton.remove();
-}
-
-// // Re-run when navigating between YouTube videos
-// let lastUrl = location.href;
-// new MutationObserver(() => {
-//   if (location.href !== lastUrl) {
-//     lastUrl = location.href;
-//     resetComments();
-//     isCommentsRight = false;
-//   }
-// }).observe(document, { subtree: true, childList: true });
