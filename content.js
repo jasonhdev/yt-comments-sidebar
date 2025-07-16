@@ -15,9 +15,12 @@ function toggleComments() {
 
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
+      document.addEventListener('dblclick', handleExpandCommentsWhenHovered);
     }, 0);
+
   } else {
     comments.classList.remove('active');
+    comments.classList.remove('active-expand');
     document.body.style.overflow = '';
     document.removeEventListener('click', handleOutsideClick);
   }
@@ -25,9 +28,9 @@ function toggleComments() {
 
 function handleOutsideClick(event) {
   const comments = document.getElementById('comments');
-  const videoElement = document.querySelector('video');
+  const youtubePlayer = document.querySelector('.html5-video-player');
 
-  if (videoElement && videoElement.contains(event.target)) {
+  if (youtubePlayer && youtubePlayer.contains(event.target)) {
     return;
   }
 
@@ -37,14 +40,22 @@ function handleOutsideClick(event) {
   }
 }
 
+function handleExpandCommentsWhenHovered() {
+  const comments = document.getElementById('comments');
+  comments.classList.toggle('active-expand');
+}
+
 function addCommentsButton() {
-  const targetElement = document.querySelector('div#title');
+  const targetElement = document.querySelector('div#above-the-fold div#title');
 
-  if (!targetElement)
+  if (!targetElement) {
     return false;
+  }
 
-  if (document.getElementById('openCommentsBtn'))
+  if (document.getElementById('openCommentsBtn')) {
     return true;
+  }
+
 
   const button = document.createElement('button');
 
