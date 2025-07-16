@@ -19,10 +19,17 @@ function toggleComments() {
     }, 0);
 
   } else {
-    comments.classList.remove('active');
-    comments.classList.remove('active-expand');
+    comments.classList.add('slide-out');
+
+    setTimeout(() => {
+      comments.classList.remove('active');
+      comments.classList.remove('active-expand');
+      comments.classList.remove('slide-out');
+    }, 500);
+
     document.body.style.overflow = '';
     document.removeEventListener('click', handleOutsideClick);
+    document.removeEventListener('dblclick', handleExpandCommentsWhenHovered);
   }
 }
 

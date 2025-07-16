@@ -13,6 +13,11 @@
     margin-top: 50px;
     border: .5px black solid;
     transition: width 0.2s ease;
+    animation: slideInFromRight 0.1s ease-out forwards;
+}
+
+#comments.slide-out {
+  animation: slideOutToRight 0.1s ease-in forwards;
 }
 
 #comments.active #action-menu {
@@ -42,4 +47,24 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+@keyframes slideOutToRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
