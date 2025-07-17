@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Extension Settings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Settings</h1>
+
+    <label>
+        Docking position:
+        <select id="dockPosition">
+            <option value="right">Right</option>
+            <option value="left">Left</option>
+        </select>
+    </label>
+
+    <label>
+        Always Expand on Hover:
+        <input type="checkbox" id="alwaysExpandOnHover" />
+    </label>
+
+    <br>
+    <button id="save">Save</button>
+
+    <p id="status"></p>
+
+    <script src="options.js"></script>
+</body>
+
+</html>

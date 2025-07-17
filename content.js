@@ -1,4 +1,6 @@
-let isCommentsActive = false;
+let isCommentsDocked = false;
+let dockPosition = "right";
+let alwaysExpandOnHover = false;
 
 function toggleComments() {
   const comments = document.getElementById('comments');
@@ -7,11 +9,15 @@ function toggleComments() {
     return;
   }
 
-  isCommentsActive = !isCommentsActive;
+  isCommentsDocked = !isCommentsDocked;
 
-  if (isCommentsActive) {
+  if (isCommentsDocked) {
     document.body.style.overflow = 'hidden';
-    comments.classList.add('active');
+    comments.classList.add(
+      'docked',
+      `docked-${dockPosition}`,
+      ...(alwaysExpandOnHover ? ['docked-expand'] : [])
+    );
 
     setTimeout(() => {
       document.addEventListener('click', handleOutsideClick);
@@ -19,13 +25,11 @@ function toggleComments() {
     }, 0);
 
   } else {
-    comments.classList.add('slide-out');
+    comments.classList.add(`slide-out-${dockPosition}`);
 
     setTimeout(() => {
-      comments.classList.remove('active');
-      comments.classList.remove('active-expand');
-      comments.classList.remove('slide-out');
-    }, 500);
+      comments.classList.remove('docked', 'docked-expand', 'docked-right', 'docked-left', 'slide-out-left', 'slide-out-right');
+    }, 200);
 
     document.body.style.overflow = '';
     document.removeEventListener('click', handleOutsideClick);
@@ -49,7 +53,7 @@ function handleOutsideClick(event) {
 
 function handleExpandCommentsWhenHovered() {
   const comments = document.getElementById('comments');
-  comments.classList.toggle('active-expand');
+  comments.classList.toggle('docked-expand');
 }
 
 function addCommentsButton() {
@@ -62,7 +66,6 @@ function addCommentsButton() {
   if (document.getElementById('openCommentsBtn')) {
     return true;
   }
-
 
   const button = document.createElement('button');
 
@@ -80,6 +83,24 @@ function addCommentsButton() {
 
   targetElement.prepend(button);
 }
+
+chrome.storage.sync.get(['dockPosition', 'alwaysExpandOnHover'], (result) => {
+  dockPosition = result.dockPosition || 'right';
+  alwaysExpandOnHover = result.alwaysExpandOnHover ?? false;
+});
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'sync') {
+    if ('dockPosition' in changes) {
+      const newDockPosition = changes.dockPosition.newValue;
+      dockPosition = newDockPosition || 'right';
+    }
+    if ('alwaysExpandOnHover' in changes) {
+      const newAlwaysExpandOnHover = changes.alwaysExpandOnHover.newValue;
+      alwaysExpandOnHover = newAlwaysExpandOnHover ?? false;
+    }
+  }
+});
 
 window.addEventListener('load', () => {
   const interval = setInterval(() => {

@@ -8,6 +8,13 @@
   "action": {
     "default_icon": "youtubeIcon.png"
   },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "storage"
+  ],
   "content_scripts": [
     {
       "js": [
