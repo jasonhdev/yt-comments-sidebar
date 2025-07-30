@@ -57,7 +57,7 @@ function handleExpandCommentsWhenHovered() {
 }
 
 function addCommentsButton() {
-  const targetElement = document.querySelector('div#above-the-fold div#title');
+  const targetElement = document.querySelector('div#above-the-fold #description');
 
   if (!targetElement) {
     return false;
