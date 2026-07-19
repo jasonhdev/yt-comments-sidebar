@@ -69,6 +69,34 @@
   object-fit: contain;
 }
 
+.yt-scroll-top {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: #606060;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.yt-scroll-top:hover {
+  background: #7a7a7a;
+}
+
+.yt-scroll-top:active {
+  transform: scale(0.95);
+}
+
 @keyframes slideInRight {
   from {
     transform: translateX(100%);
