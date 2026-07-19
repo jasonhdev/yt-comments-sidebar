@@ -57,7 +57,7 @@ function handleExpandCommentsWhenHovered() {
 }
 
 function addCommentsButton() {
-  const targetElement = document.querySelector('div#above-the-fold #description');
+  const targetElement = document.querySelector('#title.ytd-watch-metadata');
 
   if (!targetElement) {
     return false;
