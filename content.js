@@ -98,7 +98,6 @@ function createScrollToTopButton() {
 
   scrollToTopBtn.id = 'scrollToTopBtn';
   scrollToTopBtn.className = 'yt-scroll-top';
-  scrollToTopBtn.style.display = 'none';
   scrollToTopBtn.textContent = '↑';
 
   scrollToTopBtn.addEventListener('click', () => {
@@ -110,29 +109,13 @@ function createScrollToTopButton() {
 
   document.body.appendChild(scrollToTopBtn);
 
-  // Watch for the comments section and toggle button visibility
   const toggleVisibility = () => {
-    const commentsSection = document.querySelector('#comments');
-    if (!commentsSection) {
-      scrollToTopBtn.style.display = 'none';
-      return;
-    }
-
-    const rect = commentsSection.getBoundingClientRect();
-    // Show button once the top of the comments section has scrolled above the viewport
-    const isCommentsVisible = rect.top <= window.innerHeight;
-
-    scrollToTopBtn.style.display = isCommentsVisible ? 'block' : 'none';
+    scrollToTopBtn.style.display =
+      window.scrollY > 500 ? 'block' : 'none';
   };
 
   window.addEventListener('scroll', toggleVisibility, { passive: true });
 
-  // In case comments load dynamically after page load (YouTube is SPA-like),
-  // re-check periodically or use a MutationObserver
-  const observer = new MutationObserver(toggleVisibility);
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  // Initial check
   toggleVisibility();
 }
 

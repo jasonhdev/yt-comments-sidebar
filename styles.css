@@ -70,11 +70,12 @@
 }
 
 .yt-scroll-top {
+  display: none;
   position: fixed;
   bottom: 5%;
   right: 5%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   align-items: center;
   justify-content: center;
   border: none;
@@ -87,6 +88,7 @@
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
 }
 
 .yt-scroll-top:hover {
