@@ -85,40 +85,21 @@ function addCommentsButton() {
   targetElement.appendChild(button);
 }
 
-chrome.storage.sync.get(['dockPosition', 'alwaysExpandOnHover', 'showScrollToTop'], (result) => {
-  dockPosition = result.dockPosition || 'right';
-  alwaysExpandOnHover = result.alwaysExpandOnHover ?? false;
-  showScrollToTop = result.showScrollToTop ?? true;
-});
-
-chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync') {
-    if ('dockPosition' in changes) {
-      const newDockPosition = changes.dockPosition.newValue;
-      dockPosition = newDockPosition || 'right';
-    }
-    if ('alwaysExpandOnHover' in changes) {
-      const newAlwaysExpandOnHover = changes.alwaysExpandOnHover.newValue;
-      alwaysExpandOnHover = newAlwaysExpandOnHover ?? false;
-    }
-
-    if ('showScrollToTop' in changes) {
-      const newShowScrollToTop = changes.showScrollToTop.newValue;
-      showScrollToTop = newShowScrollToTop ?? true;
-    }
-  }
-});
-
 function createScrollToTopButton() {
   if (showScrollToTop === false) {
     return;
   }
 
+  if (document.getElementById('scrollToTopBtn')) {
+    return true;
+  }
+
   const scrollToTopBtn = document.createElement('button');
 
-  scrollToTopBtn.textContent = '↑';
+  scrollToTopBtn.id = 'scrollToTopBtn';
   scrollToTopBtn.className = 'yt-scroll-top';
   scrollToTopBtn.style.display = 'none';
+  scrollToTopBtn.textContent = '↑';
 
   scrollToTopBtn.addEventListener('click', () => {
     window.scrollTo({
@@ -155,13 +136,43 @@ function createScrollToTopButton() {
   toggleVisibility();
 }
 
+chrome.storage.sync.get(['dockPosition', 'alwaysExpandOnHover', 'showScrollToTop'], (result) => {
+  dockPosition = result.dockPosition || 'right';
+  alwaysExpandOnHover = result.alwaysExpandOnHover ?? false;
+  showScrollToTop = result.showScrollToTop ?? true;
+});
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'sync') {
+    if ('dockPosition' in changes) {
+      const newDockPosition = changes.dockPosition.newValue;
+      dockPosition = newDockPosition || 'right';
+    }
+    if ('alwaysExpandOnHover' in changes) {
+      const newAlwaysExpandOnHover = changes.alwaysExpandOnHover.newValue;
+      alwaysExpandOnHover = newAlwaysExpandOnHover ?? false;
+    }
+
+    if ('showScrollToTop' in changes) {
+      const newShowScrollToTop = changes.showScrollToTop.newValue;
+      showScrollToTop = newShowScrollToTop ?? true;
+    }
+  }
+});
+
 window.addEventListener('load', () => {
-  const interval = setInterval(() => {
+  const commentsInterval = setInterval(() => {
     const success = addCommentsButton();
     if (success) {
-      clearInterval(interval);
+      clearInterval(commentsInterval);
     }
   }, 1000);
 
-  createScrollToTopButton();
+  const scrollToTopInterval = setInterval(() => {
+    const success = createScrollToTopButton();
+    if (success) {
+      clearInterval(scrollToTopInterval);
+    }
+  }, 1000);
+
 });
